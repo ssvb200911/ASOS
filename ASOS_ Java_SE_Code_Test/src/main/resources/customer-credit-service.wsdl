@@ -1,0 +1,53 @@
+<definitions name = "CustomerCreditService"
+             targetNamespace = "http://example.asos.com/wsdl/CustomerCreditService.wsdl"
+             xmlns = "http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns = "http://example.asos.com/wsdl/CustomerCreditService.wsdl"
+             xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+
+    <message name = "GetCreditLimitRequest">
+        <part name = "firstName" type = "xsd:string"/>
+        <part name = "surname" type = "xsd:string"/>
+        <part name = "dateOfBirth" type = "xsd:dateTime"/>
+    </message>
+
+    <message name = "GetCreditLimitResponse">
+        <part name = "creditLimit" type = "xsd:integer"/>
+    </message>
+
+    <portType name = "GetCreditLimit_PortType">
+        <operation name = "getCreditLimit">
+            <input message = "tns:GetCreditLimitRequest"/>
+            <output message = "tns:GetCreditLimitResponse"/>
+        </operation>
+    </portType>
+
+    <binding name = "GetCreditLimit_Binding" type = "tns:GetCreditLimit_PortType">
+        <soap:binding style = "doc"
+                      transport = "http://schemas.xmlsoap.org/soap/http"/>
+        <operation name = "getCreditLimit">
+            <soap:operation soapAction = "getCreditLimit"/>
+            <input>
+                <soap:body
+                        encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                        namespace = "urn:examples:customercreditservice"
+                        use = "encoded"/>
+            </input>
+
+            <output>
+                <soap:body
+                        encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                        namespace = "urn:examples:customercreditservice"
+                        use = "encoded"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name = "CustomerCreditService_Service">
+        <documentation>WSDL File for CustomerCreditService</documentation>
+        <port binding = "tns:GetCreditLimit_Binding" name = "GetCreditLimit_Port">
+            <soap:address
+                    location = "http://example.asos.com/CustomerCreditService/getCreditLimit" />
+        </port>
+    </service>
+</definitions>
